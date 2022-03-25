@@ -2,6 +2,7 @@
 
 echo "This script requires root privileges!"
 
-sudo cp ./textscan /bin
-sudo cp ./textscan  /usr/bin
-sudo cp ./textscan /usr/local/bin
+sudo cp ./textscan /bin/
+sudo cp ./textscan  /usr/bin/
+sudo cp ./textscan /usr/local/bin/
+

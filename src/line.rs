@@ -31,7 +31,7 @@ impl Line{
     }
 
     pub fn colorize_query_word(mut self, query: &str) -> Self{
-        if self.has_query{
+        if self.has_query {
             let begining_idx = self.line_content.to_owned().find(query).unwrap();
             let ending_idx = begining_idx + query.len();
             let new_line_content = String::from(self.line_content);
@@ -42,9 +42,38 @@ impl Line{
                     + "\x1b[0m" + &new_line_content[ending_idx..];
 
             self.line_content = new_line_content;
-            self
-        }else{
-            self
         }
+        self
+
+    }
+}
+
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn line_constructs_as_expected() {
+        let l = Line::new(1, String::from("content"), false);
+        assert_eq!(l.has_query, false);
+        assert_eq!(l.line_num, 1);
+        assert_eq!(l.line_content, String::from("content"))
+    }
+
+    #[test]
+    fn colorizes_as_expected_with_query() {
+        let mut l = Line::new(1, String::from("some content"), true);
+        l = l.colorize_query_word("content");
+        assert_eq!(l.line_content.contains("\x1b[0m"), true);
+        assert_eq!(l.line_content.contains("\x1b[33m"), true);
+    }
+
+    #[test]
+    fn colorizes_as_expected_without_query() {
+        let mut l = Line::new(1, String::from("some content"), false);
+        l = l.colorize_query_word("nothing");
+        assert_eq!(l.line_content.contains("\x1b[0m"), false);
+        assert_eq!(l.line_content.contains("\x1b[33m"), false);
     }
 }
