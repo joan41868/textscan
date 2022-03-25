@@ -15,15 +15,19 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+        name: Setup Rust SDK
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
 
+        name: Build code
       - uses: actions-rs/cargo@v1
         with:
           command: build
           args: --release --all-features
 
+        name: Test Code
       - uses: actions-rs/cargo@v1
         with:
           command: test
+
