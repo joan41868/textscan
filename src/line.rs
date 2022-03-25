@@ -32,14 +32,14 @@ impl Line{
 
     pub fn colorize_query_word(mut self, query: &str) -> Self{
         if self.has_query {
-            let begining_idx = self.line_content.to_owned().find(query).unwrap();
-            let ending_idx = begining_idx + query.len();
+            let query_start_idx = self.line_content.to_owned().find(query).unwrap();
+            let query_end_idx = query_start_idx + query.len();
             let new_line_content = String::from(self.line_content);
             let new_line_content =
-                String::from(&new_line_content[0..begining_idx])
+                String::from(&new_line_content[0..query_start_idx])
                     + "\x1b[33m"
-                    + &new_line_content[begining_idx..ending_idx]
-                    + "\x1b[0m" + &new_line_content[ending_idx..];
+                    + &new_line_content[query_start_idx..query_end_idx]
+                    + "\x1b[0m" + &new_line_content[query_end_idx..];
 
             self.line_content = new_line_content;
         }

@@ -8,8 +8,8 @@ use line::{Line};
 
 
 fn compose_final_result(arr: &Vec<Line>, skip_lines: bool) -> String{
-    let mut final_string: String = "".to_owned();
-    let mut skip_lines_final = "".to_owned();
+    let mut final_string: String = String::new();
+    let mut skip_lines_final = String::new();
     for i in arr{
         if i.has_query{
             skip_lines_final.push_str(&i.stringify());
